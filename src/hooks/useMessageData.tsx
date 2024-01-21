@@ -27,7 +27,7 @@ export default function useMessageData(threadId: number | string) {
       .catch((_e) => {
         setStatus("ERROR");
       });
-  }, []);
+  }, [threadId]);
 
   return { status, messageList };
 }

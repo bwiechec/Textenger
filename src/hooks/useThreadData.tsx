@@ -29,7 +29,7 @@ export default function useThreadData(
       .catch((_e) => {
         setStatus("ERROR");
       });
-  }, []);
+  }, [threadId, userId]);
 
   return { status, threadData };
 }

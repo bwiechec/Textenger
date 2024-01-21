@@ -13,7 +13,7 @@ export default function ThreadCard({ threadId }: IThreadCard) {
   return (
     <NavLink
       to={`?t=${threadId}`}
-      className="border border-solid border-white w-full p-4 rounded-xl flex gap-6 items-center  hover:bg-opacity-10 hover:bg-white"
+      className="border border-solid border-white w-full p-4 rounded-xl flex gap-6 items-center relative hover:bg-opacity-10 hover:bg-white"
     >
       <LoaderOverlay status={status} />
       <Avatar alt={threadData?.name ?? ""} />

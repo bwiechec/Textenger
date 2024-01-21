@@ -4,7 +4,12 @@ type ILoader = {
 
 export function Loader({ status }: ILoader) {
   return (
-    <div role="status" className={`${status === "LOADING" && "hidden"}`}>
+    <div
+      role="status"
+      className={`h-full w-full flex items-center justify-center ${
+        status === "LOADING" && "hidden"
+      }`}
+    >
       <svg
         aria-hidden="true"
         className="w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
@@ -29,7 +34,7 @@ export function Loader({ status }: ILoader) {
 export function LoaderOverlay({ status }: ILoader) {
   return (
     <div
-      className={`absolute bg-white bg-opacity-10 z-10 h-full w-full flex items-center justify-center ml-[-1rem] ${
+      className={`absolute bg-white bg-opacity-10 z-10 h-full w-full flex items-center justify-center top-0 left-0 transition duration-300 ease-in-out ${
         status !== "LOADING" && "hidden"
       }`}
     >
