@@ -10,7 +10,7 @@ const Providers = BuildProviderTree([UserContextProvider]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename="/Textenger">
       <Providers>
         <App />
       </Providers>
