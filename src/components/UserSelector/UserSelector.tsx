@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react";
-
 import { IUser } from "../../lib/api/user/user.interface";
 import ChatUser from "../ChatUser/ChatUser";
 import { LoaderOverlay } from "../Loader/Loader";

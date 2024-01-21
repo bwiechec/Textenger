@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { LoaderOverlay } from "../Loader/Loader";
 import useQuery from "../../hooks/useQuery";
 import useMessageData from "../../hooks/useMessageData";
