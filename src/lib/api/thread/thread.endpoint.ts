@@ -9,3 +9,11 @@ export function apiGetThreads() {
 export function apiGetThreadById(threadId: number | string) {
   return axios<IApiThread>({ url: `${base_url}/threads/${threadId}.json` });
 }
+
+export function apiCreateThread(thread: IApiThread) {
+  return axios<IApiThread>({
+    url: `${base_url}/threads.json`,
+    method: "POST",
+    data: JSON.stringify(thread),
+  });
+}

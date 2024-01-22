@@ -10,6 +10,11 @@ type IThreadCard = {
 export default function ThreadCard({ threadId }: IThreadCard) {
   const { user } = useUser();
   const { status, threadData } = useThreadData(threadId, user?.id ?? 0);
+
+  console.log("threadId");
+  console.log(user?.id);
+  console.log(threadId);
+  console.log(threadData);
   return (
     <NavLink
       to={`?t=${threadId}`}

@@ -14,17 +14,28 @@ export default function useThreadData(
     setStatus("LOADING");
     apiGetThreadById(threadId)
       .then((res) => {
-        const otherUsers = res.data.members?.findIndex(
-          (_member, key) => key !== userId
+        console.log(res.data.members);
+        const arrayMembers = Object.entries(res.data?.members ?? {}).map(
+          ([key, value]) => ({ [key]: { value: value.value } })
         );
-        apiGetUserById(otherUsers ?? userId).then((resUser) => {
-          setThreadData({
-            id: threadId,
-            name: resUser.data.name,
-            members: res.data.members,
-          });
-          setStatus("IDLE");
-        });
+        console.log("2");
+        const otherUsers = arrayMembers?.findIndex(
+          (member, _key) => Object.keys(member)[0] !== userId
+        );
+        console.log(userId);
+        console.log(arrayMembers);
+        console.log(otherUsers);
+        apiGetUserById(Object.keys(arrayMembers[otherUsers])[0] ?? userId).then(
+          (resUser) => {
+            console.log(resUser);
+            setThreadData({
+              id: threadId,
+              name: resUser.data.name,
+              members: arrayMembers,
+            });
+            setStatus("IDLE");
+          }
+        );
       })
       .catch((_e) => {
         setStatus("ERROR");

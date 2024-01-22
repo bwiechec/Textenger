@@ -7,7 +7,16 @@ export function apiGetMessages() {
 }
 
 export function apiGetMessagesByThreadId(threadId: number | string) {
+  console.log(threadId);
   return axios<IApiMessage[]>({
-    url: `${base_url}/messages/${threadId}.json?orderBy="timestamp"&orderBy="desc"`,
+    url: `${base_url}/messages.json?orderBy="threadId"&equalTo="${threadId}"&orderBy="timestamp"&orderBy="desc"`,
+  });
+}
+
+export function apiCreateMessages(message: IApiMessage) {
+  return axios<IApiMessage[]>({
+    url: `${base_url}/messages.json`,
+    method: "POST",
+    data: JSON.stringify(message),
   });
 }

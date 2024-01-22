@@ -1,6 +1,6 @@
 export type IApiThread = {
   name: string;
-  members?: { [id: number | string]: { value: boolean } }[];
+  members?: { [id: number | string]: { value: boolean } };
 };
 
 export type IThread = {

@@ -9,3 +9,11 @@ export function apiGetUsers() {
 export function apiGetUserById(userId: number | string) {
   return axios<IApiUser>({ url: `${base_url}/users/${userId}.json` });
 }
+
+export function apiChangeUserById(userId: number | string, user: IApiUser) {
+  return axios<IApiUser>({
+    url: `${base_url}/users/${userId}.json`,
+    method: "PATCH",
+    data: JSON.stringify(user),
+  });
+}

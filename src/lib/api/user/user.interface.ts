@@ -1,6 +1,6 @@
 export type IApiUser = {
   name: string;
-  threads?: { [id: number | string]: { value: boolean } }[];
+  threads?: { [id: number | string]: { value: boolean } };
 };
 
 export type IUser = {

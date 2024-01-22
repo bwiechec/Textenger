@@ -8,6 +8,8 @@ export default function UserSelector() {
   const { setUser } = useUser();
   const { status, userList } = useUserData();
 
+  console.log(userList);
+
   const onClick = (user: IUser) => {
     setUser(user);
   };

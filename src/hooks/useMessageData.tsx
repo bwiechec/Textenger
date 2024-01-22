@@ -11,8 +11,12 @@ export default function useMessageData(threadId: number | string) {
     apiGetMessagesByThreadId(threadId)
       .then((res) => {
         console.log(res.data);
+        const arrayMessages = Object.entries(res.data ?? {}).map(
+          ([_key, value]) => value
+        );
         let messages: IMessage[] = [];
-        res.data.forEach((e, key) => {
+        arrayMessages.forEach((e, key) => {
+          console.log(messages);
           messages.push({
             threadId: threadId,
             messageId: key,
@@ -21,7 +25,9 @@ export default function useMessageData(threadId: number | string) {
             timestamp: e.timestamp,
           });
         });
+        messages.sort((msg1, msg2) => msg2.timestamp - msg1.timestamp);
         setMessageList(messages);
+        console.log(messages);
         setStatus("IDLE");
       })
       .catch((_e) => {
