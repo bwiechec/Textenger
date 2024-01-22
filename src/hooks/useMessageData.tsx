@@ -26,8 +26,12 @@ export default function useMessageData(
             timestamp: e.timestamp,
           });
         });
-        messages.sort((msg1, msg2) => msg2.timestamp - msg1.timestamp);
-        setMessageList(messages);
+        console.log(
+          messages.sort((msg1, msg2) => msg2.timestamp - msg1.timestamp)
+        );
+        setMessageList(
+          messages.sort((msg1, msg2) => msg2.timestamp - msg1.timestamp)
+        );
         setStatus("IDLE");
       })
       .catch((_e) => {
