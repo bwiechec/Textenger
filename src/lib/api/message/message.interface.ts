@@ -1,5 +1,6 @@
 export type IApiMessage = {
   userId: string | number;
+  threadId: string | number;
   message: string;
   timestamp: number;
 };
