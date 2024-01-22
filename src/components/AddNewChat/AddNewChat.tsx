@@ -68,7 +68,7 @@ export default function AddNewChat({
 
     apiCreateThread(thread).then((res) => {
       console.log(res.data.name); // id chatu nowego
-      arrayMembers.forEach((member, _key) => {
+      arrayMembers.forEach((member, key) => {
         console.log(member);
         const userData = userList.find(
           (userItem) => userItem.id === Object.keys(member)[0]
@@ -86,6 +86,8 @@ export default function AddNewChat({
           }, {}),
         });
         if (user?.id === Object.keys(member)[0]) afterExecute(threads);
+
+        if (key === arrayMembers.length) onClose();
       });
     });
   };

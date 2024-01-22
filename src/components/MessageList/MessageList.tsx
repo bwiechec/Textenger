@@ -32,12 +32,6 @@ export default function MessageList() {
     // return clearInterval(interval);
   }, []);
 
-  console.log(
-    user?.threads?.findIndex((thread) => Object.keys(thread)[0] === threadId)
-  );
-  console.log(user?.threads);
-  console.log(threadId);
-
   if (
     user?.threads?.findIndex(
       (thread) => Object.keys(thread)[0] === threadId
@@ -60,6 +54,7 @@ export default function MessageList() {
       timestamp: new Date().getTime(),
     }).then(() => {
       setLastTimestamp(new Date().getTime());
+      setMessage("");
     });
   };
   return (
@@ -77,6 +72,9 @@ export default function MessageList() {
             className="w-full h-full p-4"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
+            onKeyUp={(e) => {
+              if (e.key === "Enter") sendMsg();
+            }}
           />
           <IoSend
             className="absolute right-6 bottom-8 cursor-pointer"

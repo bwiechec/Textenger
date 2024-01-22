@@ -26,9 +26,6 @@ export default function useMessageData(
             timestamp: e.timestamp,
           });
         });
-        console.log(
-          messages.sort((msg1, msg2) => msg2.timestamp - msg1.timestamp)
-        );
         setMessageList(
           messages.sort((msg1, msg2) => msg2.timestamp - msg1.timestamp)
         );
