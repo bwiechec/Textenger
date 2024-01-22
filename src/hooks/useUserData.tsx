@@ -10,15 +10,11 @@ export default function useUserData() {
     setStatus("LOADING");
     apiGetUsers()
       .then((res) => {
-        console.log(res.data);
         let users: IUser[] = [];
         const arrayData = Object.entries(res.data ?? {}).map(
           ([_key, value]) => value
         );
-        console.log(arrayData);
         arrayData.forEach((e, _key) => {
-          console.log("e");
-          console.log(e);
           const arrayThreads = Object.entries(e.threads ?? {}).map(
             ([key, value]) => ({ [key]: { value: value.value } })
           );

@@ -11,6 +11,9 @@ import { apiChangeUserById } from "../../lib/api/user/user.endpoint";
 type IAddNewChat = {
   show: boolean;
   onClose: () => void;
+  afterExecute: (
+    threads: { [id: number | string]: { value: boolean } }[]
+  ) => void;
 };
 
 type IOptions = {
@@ -18,7 +21,11 @@ type IOptions = {
   label: string;
 };
 
-export default function AddNewChat({ show, onClose }: IAddNewChat) {
+export default function AddNewChat({
+  show,
+  onClose,
+  afterExecute,
+}: IAddNewChat) {
   const { status, userList } = useUserData();
   const { user } = useUser();
   const [selectedUsers, setSelectedUsers] = useState<IOptions[]>([]);
@@ -68,18 +75,20 @@ export default function AddNewChat({ show, onClose }: IAddNewChat) {
         );
         const threads = userData?.threads ?? [];
         threads.push({ [res.data.name]: { value: true } });
-        console.log(userData);
         if (!userData) return;
         apiChangeUserById(userData.id, {
           name: userData.name,
-          threads: threads.reduce((_thread, obj) => {
-            return obj;
+          threads: threads.reduce((acc, obj) => {
+            acc[Object.keys(obj)[0]] = {
+              value: obj[Object.keys(obj)[0]].value,
+            };
+            return acc;
           }, {}),
         });
+        if (user?.id === Object.keys(member)[0]) afterExecute(threads);
       });
     });
   };
-
   return (
     <Modal show={show} title="Add new chat" onClose={onClose}>
       <div className="text-black mt-6 flex flex-col gap-4 h-64 justify-between">
@@ -94,7 +103,10 @@ export default function AddNewChat({ show, onClose }: IAddNewChat) {
           />
           <input
             value={chatName}
-            onChange={(e) => setChatName(e.target.value)}
+            onChange={(e) => {
+              console.log(e.target.value);
+              setChatName(e.target.value);
+            }}
             className="p-4 text-white"
             placeholder="Chat name"
           />

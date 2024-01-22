@@ -6,25 +6,47 @@ import { IoSend } from "react-icons/io5";
 import { useUser } from "../../context/UserContext";
 import useThreadData from "../../hooks/useThreadData";
 import { ThreadContextProvider } from "../../context/ThreadContext";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { apiCreateMessages } from "../../lib/api/message/message.endpoint";
 
 export default function MessageList() {
   const query = useQuery();
   const { user } = useUser();
   const threadId = query.get("t");
-  const { status: statusMsg, messageList } = useMessageData(threadId ?? -1);
+  const [lastTimestamp, setLastTimestamp] = useState<number>(0);
+  const { status: statusMsg, messageList } = useMessageData(
+    threadId ?? -1,
+    lastTimestamp
+  );
   const { status: statusThread, threadData } = useThreadData(
     threadId ?? -1,
     user?.id ?? 0
   );
   const [message, setMessage] = useState("");
 
-  if (!threadId || !user?.threads) return null;
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setLastTimestamp(new Date().getTime());
+    }, 2500);
+
+    // return clearInterval(interval);
+  }, []);
+
+  console.log(
+    user?.threads?.findIndex((thread) => Object.keys(thread)[0] === threadId)
+  );
+  console.log(user?.threads);
+  console.log(threadId);
 
   if (
-    statusThread === "LOADING" ||
-    statusMsg === "LOADING" ||
+    user?.threads?.findIndex(
+      (thread) => Object.keys(thread)[0] === threadId
+    ) === -1
+  )
+    return null;
+
+  if (
+    (statusThread === "LOADING" || statusMsg === "LOADING") &&
     threadData === undefined
   )
     return <Loader />;
@@ -33,21 +55,20 @@ export default function MessageList() {
     if (message === "") return;
     apiCreateMessages({
       userId: user.id,
-      threadId: threadId,
+      threadId: threadId ?? "",
       message: message,
       timestamp: new Date().getTime(),
+    }).then(() => {
+      setLastTimestamp(new Date().getTime());
     });
   };
-  console.log(messageList);
-
   return (
     <ThreadContextProvider value={threadData}>
-      <div className="min-h-full w-full items-center flex pt-4 relative flex-col">
-        MessageList
+      <div className="min-h-full w-full max-h-[100dvh] items-center flex pt-4 relative flex-col">
+        {threadData?.name}
         <LoaderOverlay status={statusThread} />
-        <div className="h-full w-full flex p-4 relative flex-col-reverse">
+        <div className="h-full w-full flex p-4 relative flex-col-reverse overflow-y-auto">
           {messageList.map((message) => {
-            console.log(message);
             return <MessageBox message={message} key={message.messageId} />;
           })}
         </div>

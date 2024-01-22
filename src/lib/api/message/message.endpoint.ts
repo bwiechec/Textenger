@@ -7,7 +7,6 @@ export function apiGetMessages() {
 }
 
 export function apiGetMessagesByThreadId(threadId: number | string) {
-  console.log(threadId);
   return axios<IApiMessage[]>({
     url: `${base_url}/messages.json?orderBy="threadId"&equalTo="${threadId}"&orderBy="timestamp"&orderBy="desc"`,
   });

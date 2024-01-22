@@ -23,7 +23,7 @@ export function ThreadContextProvider({
   value,
 }: {
   children: JSX.Element;
-  value: IThread;
+  value: IThread | undefined;
 }) {
   const [thread, setThread] = useState<IThread | undefined>(value);
 

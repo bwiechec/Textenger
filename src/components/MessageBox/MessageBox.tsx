@@ -11,8 +11,6 @@ export default function MessageBox({ message }: IMessageBox) {
   const { user } = useUser();
   const { thread } = useThread();
 
-  console.log(thread);
-
   return (
     <div
       className={`flex items-center gap-2 p-4 relative ${
@@ -20,7 +18,7 @@ export default function MessageBox({ message }: IMessageBox) {
       }`}
     >
       <div className={`${user?.id === message.userId ? "hidden" : "block"}`}>
-        <Avatar alt={thread?.name ?? ""} />
+        <Avatar alt={message.userId.toString() ?? ""} />
       </div>
       {message.message}
     </div>
