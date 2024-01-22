@@ -25,7 +25,7 @@ export default function MessageList() {
   const [message, setMessage] = useState("");
 
   useEffect(() => {
-    const interval = setInterval(() => {
+    /*const interval =*/ setInterval(() => {
       setLastTimestamp(new Date().getTime());
     }, 2500);
 
@@ -54,7 +54,7 @@ export default function MessageList() {
   const sendMsg = () => {
     if (message === "") return;
     apiCreateMessages({
-      userId: user.id,
+      userId: user?.id ?? 0,
       threadId: threadId ?? "",
       message: message,
       timestamp: new Date().getTime(),

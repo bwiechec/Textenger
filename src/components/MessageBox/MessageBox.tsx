@@ -1,4 +1,3 @@
-import { useThread } from "../../context/ThreadContext";
 import { useUser } from "../../context/UserContext";
 import { IMessage } from "../../lib/api/message/message.interface";
 import Avatar from "../Avatar/Avatar";
@@ -9,7 +8,7 @@ type IMessageBox = {
 
 export default function MessageBox({ message }: IMessageBox) {
   const { user } = useUser();
-  const { thread } = useThread();
+  // const { thread } = useThread();
 
   return (
     <div
