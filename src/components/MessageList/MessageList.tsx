@@ -69,7 +69,7 @@ export default function MessageList() {
         </div>
         <div className="w-full bottom-0 h-24 relative">
           <input
-            className="w-full h-full p-4"
+            className="w-full h-full p-4 bg-[#353434] bg-opacity-60"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             onKeyUp={(e) => {
