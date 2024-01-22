@@ -1,10 +1,9 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { useUser } from "../../context/UserContext";
 import useUserData from "../../hooks/useUserData";
 import { LoaderOverlay } from "../Loader/Loader";
 import Modal from "../Modal/Modal";
 import Select from "react-select";
-import { IUser } from "../../lib/api/user/user.interface";
 import { apiCreateThread } from "../../lib/api/thread/thread.endpoint";
 import { IApiThread } from "../../lib/api/thread/thread.interface";
 import { apiChangeUserById } from "../../lib/api/user/user.endpoint";
