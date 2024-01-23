@@ -19,7 +19,7 @@ export default function Avatar({ alt, size }: IAvatar) {
 }
 
 const avatarSize = {
-  sm: "w-4 h-4 text-xs",
+  sm: "w-4 h-4 text-[8px]",
   md: "w-6 h-6",
   xl: "w-8 h-8",
   "2xl": "w-16 h-16",

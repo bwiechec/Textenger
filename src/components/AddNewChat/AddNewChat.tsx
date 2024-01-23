@@ -54,9 +54,6 @@ export default function AddNewChat({
       members[selectedUser.value] = { value: true };
     });
 
-    console.log("members");
-    console.log(members);
-
     const arrayMembers = Object.entries(members ?? {}).map(([key, value]) => ({
       [key]: value,
     }));
@@ -87,12 +84,21 @@ export default function AddNewChat({
         });
         if (user?.id === Object.keys(member)[0]) afterExecute(threads);
 
-        if (key === arrayMembers.length) onClose();
+        if (key === arrayMembers.length) {
+          handleClose();
+        }
       });
     });
   };
+
+  const handleClose = () => {
+    setSelectedUsers([]);
+    setChatName("");
+    onClose();
+  };
+
   return (
-    <Modal show={show} title="Add new chat" onClose={onClose}>
+    <Modal show={show} title="Add new chat" onClose={handleClose}>
       <div className="text-black mt-6 flex flex-col gap-4 h-64 justify-between">
         <LoaderOverlay status={status} />
         <div className="flex flex-col gap-4">
