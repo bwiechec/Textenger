@@ -61,7 +61,7 @@ export default function MessageList() {
   return (
     <ThreadContextProvider value={threadData}>
       <div className="min-h-full w-full max-w-full max-h-[100dvh] items-center flex pt-4 relative flex-col">
-        {threadData?.name}
+        <span className="text-xl">{threadData?.name}</span>
         <LoaderOverlay status={statusThread} />
         <div className="h-full w-full flex p-4 relative flex-col-reverse overflow-y-auto max-w-full">
           {messageList.map((message, key) => {
