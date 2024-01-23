@@ -25,11 +25,11 @@ export default function MessageList() {
   const [message, setMessage] = useState("");
 
   useEffect(() => {
-    /*const interval =*/ setInterval(() => {
+    const interval = setInterval(() => {
       setLastTimestamp(new Date().getTime());
     }, 2500);
 
-    // return clearInterval(interval);
+    return () => clearInterval(interval);
   }, []);
 
   if (
@@ -57,14 +57,21 @@ export default function MessageList() {
       setMessage("");
     });
   };
+
   return (
     <ThreadContextProvider value={threadData}>
-      <div className="min-h-full w-full max-h-[100dvh] items-center flex pt-4 relative flex-col">
+      <div className="min-h-full max-w-full max-h-[100dvh] items-center flex pt-4 relative flex-col">
         {threadData?.name}
         <LoaderOverlay status={statusThread} />
-        <div className="h-full w-full flex p-4 relative flex-col-reverse overflow-y-auto">
-          {messageList.map((message) => {
-            return <MessageBox message={message} key={message.messageId} />;
+        <div className="h-full w-full flex p-4 relative flex-col-reverse overflow-y-auto max-w-full">
+          {messageList.map((message, key) => {
+            return (
+              <MessageBox
+                message={message}
+                key={message.messageId}
+                nextMsgUser={messageList[key - 1]?.userId}
+              />
+            );
           })}
         </div>
         <div className="w-full bottom-0 h-24 relative">

@@ -1,17 +1,29 @@
 type IAvatar = {
   alt: string;
+  size?: "sm" | "md" | "xl" | "2xl";
 };
 
-export default function Avatar({ alt }: IAvatar) {
+export default function Avatar({ alt, size }: IAvatar) {
   const bgColor = alt.charAt(0).toUpperCase() as AlphabetLetter;
   return (
     <div
-      className={`rounded-full  w-8 h-8 justify-center items-center flex ${letterColors[bgColor]}`}
+      className={`${
+        size ? avatarSize[size] : "w-8 h-8"
+      } p-2 rounded-full justify-center items-center flex ${
+        letterColors[bgColor]
+      }`}
     >
       {alt.charAt(0)}
     </div>
   );
 }
+
+const avatarSize = {
+  sm: "w-4 h-4 text-xs",
+  md: "w-6 h-6",
+  xl: "w-8 h-8",
+  "2xl": "w-16 h-16",
+};
 
 const letterColors = {
   A: "bg-[#4285F4]", // Google Blue
