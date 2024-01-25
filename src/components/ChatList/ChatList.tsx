@@ -9,6 +9,7 @@ export default function ChatList() {
   const { user, setUser } = useUser();
 
   const threads = user?.threads;
+  console.log(user);
 
   const onClose = () => {
     setShowModal(false);
@@ -38,9 +39,16 @@ export default function ChatList() {
           const threadId = Object.keys(thread)[0];
           if (!thread) return <></>;
 
-          return <ThreadCard threadId={threadId} key={key} />;
+          return (
+            <ThreadCard
+              threadId={threadId}
+              key={key}
+              data-testid="thread-card"
+            />
+          );
         })}
       <AddNewChat
+        data-testid="add-chat"
         show={showModal}
         onClose={onClose}
         afterExecute={afterExecute}

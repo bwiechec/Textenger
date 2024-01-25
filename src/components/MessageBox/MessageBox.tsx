@@ -58,7 +58,7 @@ export default function MessageBox({ message, nextMsgUser }: IMessageBox) {
             showDate
               ? "block"
               : "absolute invisible opacity-0 translate-y-[100%]"
-          } transition duration-300 ease-in`}
+          } transition duration-300 ease-in text-right`}
         >
           {formattedTime}
         </span>

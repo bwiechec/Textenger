@@ -34,8 +34,6 @@ export default function AddNewChat({
   if (!show) return null;
 
   let options: IOptions[] = [];
-  console.log("userList");
-  console.log(userList);
 
   userList.forEach((userOption) => {
     if (user?.id !== userOption.id)
@@ -64,9 +62,7 @@ export default function AddNewChat({
     };
 
     apiCreateThread(thread).then((res) => {
-      console.log(res.data.name); // id chatu nowego
       arrayMembers.forEach((member, key) => {
-        console.log(member);
         const userData = userList.find(
           (userItem) => userItem.id === Object.keys(member)[0]
         );
@@ -98,7 +94,12 @@ export default function AddNewChat({
   };
 
   return (
-    <Modal show={show} title="Add new chat" onClose={handleClose}>
+    <Modal
+      show={show}
+      title="Add new chat"
+      onClose={handleClose}
+      data-testid="add-new-chat-modal"
+    >
       <div className="text-black mt-6 flex flex-col gap-4 h-64 justify-between">
         <LoaderOverlay status={status} />
         <div className="flex flex-col gap-4">
@@ -112,7 +113,6 @@ export default function AddNewChat({
           <input
             value={chatName}
             onChange={(e) => {
-              console.log(e.target.value);
               setChatName(e.target.value);
             }}
             className="p-4 text-white"

@@ -7,6 +7,7 @@ export default function Avatar({ alt, size }: IAvatar) {
   const bgColor = alt.charAt(0).toUpperCase() as AlphabetLetter;
   return (
     <div
+      data-testid="avatar"
       className={`${
         size ? avatarSize[size] : "w-8 h-8"
       } p-2 rounded-full justify-center items-center flex ${

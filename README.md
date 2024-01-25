@@ -52,6 +52,8 @@ yarn run build
    - After clicking on message user can access message send date.
 3. Add new chat modal
    User can add new chat threads using modal.
+4. Other
+   Mobile first aproach - app is made to work on every device size.
 
 ## Development
 

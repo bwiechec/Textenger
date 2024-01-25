@@ -83,10 +83,12 @@ export default function MessageList() {
               if (e.key === "Enter") sendMsg();
             }}
           />
-          <IoSend
-            className="absolute right-6 bottom-8 cursor-pointer"
+          <div
+            className="absolute right-0 bottom-0 cursor-pointer h-full w-16 flex items-center justify-center"
             onClick={sendMsg}
-          />
+          >
+            <IoSend />
+          </div>
         </div>
       </div>
     </ThreadContextProvider>
