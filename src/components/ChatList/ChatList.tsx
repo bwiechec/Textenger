@@ -25,7 +25,7 @@ export default function ChatList() {
   };
 
   return (
-    <div className="md:min-w-48 lg:min-w-80 min-h-screen items-center flex border-r border-solid border-white p-4 relative flex-col gap-4 ">
+    <div className="md:min-w-48 lg:min-w-80 min-h-[100dvh] items-center flex border-r border-solid border-white p-4 relative flex-col gap-4 ">
       <div className=" items-center w-full flex">
         <span className="w-full text-center block">Chat</span>
         <FaPlus
