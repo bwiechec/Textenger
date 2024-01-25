@@ -60,7 +60,7 @@ export default function MessageList() {
 
   return (
     <ThreadContextProvider value={threadData}>
-      <div className="min-h-full w-full max-w-full h-[100svh] items-center flex pt-4 relative flex-col">
+      <div className="w-full max-w-full h-[100dvh] items-center flex pt-4 relative flex-col">
         <span className="text-xl">{threadData?.name}</span>
         <LoaderOverlay status={statusThread} />
         <div className="h-full w-full flex p-4 relative flex-col-reverse overflow-y-auto max-w-full">
@@ -76,7 +76,7 @@ export default function MessageList() {
         </div>
         <div className="w-full bottom-0 h-24 relative">
           <input
-            className="w-full h-full p-4 bg-[#353434] bg-opacity-60"
+            className="w-full h-24 p-4 bg-[#353434] bg-opacity-60"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             onKeyUp={(e) => {
