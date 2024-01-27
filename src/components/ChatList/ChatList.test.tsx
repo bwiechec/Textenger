@@ -1,5 +1,5 @@
 // ChatList.test.tsx
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { vi } from "vitest";
 import ChatList from "./ChatList";
 
