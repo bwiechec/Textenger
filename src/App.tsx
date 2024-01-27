@@ -1,6 +1,7 @@
 import ChatList from "./components/ChatList/ChatList";
 import MessageList from "./components/MessageList/MessageList";
 import UserSelector from "./components/UserSelector/UserSelector";
+import { ThreadContextProvider } from "./context/ThreadContext";
 import { useUser } from "./context/UserContext";
 
 export default function App() {
@@ -11,7 +12,9 @@ export default function App() {
   return (
     <div className="w-screen flex">
       <ChatList />
-      <MessageList />
+      <ThreadContextProvider value={undefined}>
+        <MessageList />
+      </ThreadContextProvider>
     </div>
   );
 }

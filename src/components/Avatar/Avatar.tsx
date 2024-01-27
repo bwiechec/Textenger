@@ -4,17 +4,17 @@ type IAvatar = {
 };
 
 export default function Avatar({ alt, size }: IAvatar) {
-  const bgColor = alt.charAt(0).toUpperCase() as AlphabetLetter;
+  const upperLetter = alt.charAt(0).toUpperCase() as AlphabetLetter;
   return (
     <div
       data-testid="avatar"
       className={`${
         size ? avatarSize[size] : "w-8 h-8"
       } p-2 rounded-full justify-center items-center flex ${
-        letterColors[bgColor]
+        letterColors[upperLetter]
       }`}
     >
-      {alt.charAt(0)}
+      {upperLetter}
     </div>
   );
 }
@@ -23,7 +23,7 @@ const avatarSize = {
   sm: "w-4 h-4 text-[8px]",
   md: "w-6 h-6",
   xl: "w-8 h-8",
-  "2xl": "w-16 h-16",
+  "2xl": "w-16 h-16 text-[2rem]",
 };
 
 const letterColors = {

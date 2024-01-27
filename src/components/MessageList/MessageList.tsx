@@ -5,14 +5,18 @@ import MessageBox from "../MessageBox/MessageBox";
 import { IoSend } from "react-icons/io5";
 import { useUser } from "../../context/UserContext";
 import useThreadData from "../../hooks/useThreadData";
-import { ThreadContextProvider } from "../../context/ThreadContext";
+import { useThread } from "../../context/ThreadContext";
 import { useEffect, useState } from "react";
 import { apiCreateMessages } from "../../lib/api/message/message.endpoint";
+import { FaEllipsis } from "react-icons/fa6";
+import ThreadAdditionalData from "../ThreadAdditionalData/ThreadAdditionalData";
 
 export default function MessageList() {
   const query = useQuery();
   const { user } = useUser();
   const threadId = query.get("t");
+  const { thread, setThread } = useThread();
+  const [showingThreadData, setShowingThreadData] = useState(true);
   const [lastTimestamp, setLastTimestamp] = useState<number>(0);
   const { status: statusMsg, messageList } = useMessageData(
     threadId ?? -1,
@@ -20,7 +24,8 @@ export default function MessageList() {
   );
   const { status: statusThread, threadData } = useThreadData(
     threadId ?? -1,
-    user?.id ?? 0
+    user?.id ?? 0,
+    setThread
   );
   const [message, setMessage] = useState("");
 
@@ -58,10 +63,30 @@ export default function MessageList() {
     });
   };
 
+  const changeShowingThreadData = () => {
+    setShowingThreadData((prev) => !prev);
+  };
+
   return (
-    <ThreadContextProvider value={threadData}>
-      <div className="w-full max-w-full h-[100dvh] items-center flex pt-4 relative flex-col">
-        <span className="text-xl">{threadData?.name}</span>
+    <>
+      <div
+        className={`w-full max-w-full h-[100dvh] items-center flex relative flex-col ${
+          showingThreadData && "hidden md:flex"
+        }`}
+      >
+        <div className=" items-center w-full flex p-4">
+          <span className="w-full text-center block text-xl">
+            {threadData?.name}
+          </span>
+          <div
+            className={`absolute right-2 md:right-6 cursor-pointer p-1 ${
+              showingThreadData && "bg-blue-500 color-white rounded-full"
+            }`}
+            onClick={() => changeShowingThreadData()}
+          >
+            <FaEllipsis />
+          </div>
+        </div>
         <LoaderOverlay status={statusThread} />
         <div className="h-full w-full flex p-4 relative flex-col-reverse overflow-y-auto max-w-full">
           {messageList.map((message, key) => {
@@ -70,6 +95,7 @@ export default function MessageList() {
                 message={message}
                 key={message.messageId}
                 nextMsgUser={messageList[key - 1]?.userId}
+                prevMsgUser={messageList[key + 1]?.userId}
               />
             );
           })}
@@ -91,6 +117,11 @@ export default function MessageList() {
           </div>
         </div>
       </div>
-    </ThreadContextProvider>
+      {showingThreadData && (
+        <ThreadAdditionalData
+          changeShowingThreadData={changeShowingThreadData}
+        />
+      )}
+    </>
   );
 }

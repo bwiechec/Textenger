@@ -5,7 +5,8 @@ import { apiGetUserById } from "../lib/api/user/user.endpoint";
 
 export default function useThreadData(
   threadId: number | string,
-  userId: number | string
+  userId: number | string,
+  setThread: (newThread: IThread) => void
 ) {
   const [status, setStatus] = useState<"IDLE" | "LOADING" | "ERROR">("IDLE");
   const [threadData, setThreadData] = useState<IThread | undefined>();
@@ -30,6 +31,12 @@ export default function useThreadData(
               members: arrayMembers,
             });
             setStatus("IDLE");
+            if (setThread)
+              setThread({
+                id: threadId,
+                name: name,
+                members: arrayMembers,
+              });
           }
         );
       })

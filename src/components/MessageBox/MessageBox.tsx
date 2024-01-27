@@ -2,39 +2,48 @@ import { useState } from "react";
 import { useUser } from "../../context/UserContext";
 import { IMessage } from "../../lib/api/message/message.interface";
 import Avatar from "../Avatar/Avatar";
+import { formatTime, getBoxRadius } from "../../lib/utils/helper";
+import { useThread } from "../../context/ThreadContext";
 
 type IMessageBox = {
   message: IMessage;
   nextMsgUser: string | number;
+  prevMsgUser: string | number;
 };
 
-export default function MessageBox({ message, nextMsgUser }: IMessageBox) {
+export default function MessageBox({
+  message,
+  nextMsgUser,
+  prevMsgUser,
+}: IMessageBox) {
   const { user } = useUser();
   const [showDate, setShowDate] = useState(false);
-  // const { thread } = useThread();
+  const { thread } = useThread();
 
-  const date = new Date(message.timestamp);
-  const formattedTime =
-    ("0" + date.getMonth() + 1).slice(-2) +
-    "/" +
-    ("0" + date.getDate()).slice(-2) +
-    "/" +
-    date.getFullYear() +
-    " " +
-    date.getHours() +
-    ":" +
-    ("0" + date.getMinutes()).slice(-2) +
-    ":" +
-    ("0" + date.getSeconds()).slice(-2);
+  const userThreadCount = thread?.members?.length ?? 0;
+
+  const formattedTime = formatTime(new Date(message.timestamp));
+
+  const isFirstMessageOfUser = prevMsgUser !== message.userId;
+
+  const isLastMessageOfUser = nextMsgUser !== message.userId;
+
+  const currentUserMsg = user?.id === message.userId;
+
+  const currentBorderRadius = getBoxRadius(
+    isFirstMessageOfUser,
+    isLastMessageOfUser,
+    currentUserMsg
+  );
 
   return (
     <div
-      className={`flex items-end gap-2 p-1 relative max-w-full ${
-        user?.id === message.userId ? "justify-end" : "justify-start"
+      className={`flex items-end gap-2 px-1 py-0.5 relative max-w-full ${
+        currentUserMsg && "justify-end"
       }`}
     >
       <div
-        className={`pb-1 ${user?.id === message.userId ? "hidden" : "block"} ${
+        className={`pb-1 ${currentUserMsg ? "hidden" : "block"} ${
           nextMsgUser === message.userId && "invisible"
         }`}
       >
@@ -42,12 +51,15 @@ export default function MessageBox({ message, nextMsgUser }: IMessageBox) {
       </div>
       <div
         className={`flex flex-col w-1/2 ${
-          user?.id === message.userId ? "items-end" : "items-start"
+          currentUserMsg ? "items-end" : "items-start"
         }`}
       >
+        <span className={`${currentUserMsg ? "mr-2" : "ml-2"}`}>
+          {isFirstMessageOfUser && userThreadCount > 2 && message.userId}
+        </span>
         <div
-          className={`flex px-4 py-2 rounded-2xl cursor-default text-wrap max-w-[100%] break-all whitespace-pre ${
-            user?.id === message.userId ? "bg-blue-500" : "bg-gray-700"
+          className={`flex px-4 py-2 ${currentBorderRadius} cursor-default text-wrap max-w-[100%] break-all whitespace-pre ${
+            currentUserMsg ? "bg-blue-500" : "bg-gray-700"
           }`}
           onClick={() => setShowDate((prev) => !prev)}
         >
