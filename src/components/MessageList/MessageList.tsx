@@ -15,7 +15,7 @@ export default function MessageList() {
   const query = useQuery();
   const { user } = useUser();
   const threadId = query.get("t");
-  const { thread, setThread } = useThread();
+  const { setThread } = useThread();
   const [showingThreadData, setShowingThreadData] = useState(true);
   const [lastTimestamp, setLastTimestamp] = useState<number>(0);
   const { status: statusMsg, messageList } = useMessageData(
