@@ -7,4 +7,5 @@ export type IUser = {
   id: string | number;
   name: string;
   threads?: { [id: number | string]: { value: boolean } }[];
+  lastChangeTimestamp?: number;
 };

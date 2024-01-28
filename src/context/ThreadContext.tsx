@@ -1,5 +1,7 @@
 import { createContext, useContext, useState } from "react";
 import { IThread } from "../lib/api/thread/thread.interface";
+import useThreadData from "../hooks/useThreadData";
+import { useUser } from "./UserContext";
 
 interface IThreadContext {
   thread: IThread | undefined;
@@ -16,6 +18,14 @@ export const useThread = () => {
     throw new Error("Use context inside provider!");
   }
   return context;
+};
+
+export const updateThread = () => {
+  const { thread, setThread } = useThread();
+  const { user } = useUser();
+  const { threadData } = useThreadData(thread?.id ?? "0", user?.id ?? 0);
+
+  threadData && setThread(threadData);
 };
 
 export function ThreadContextProvider({

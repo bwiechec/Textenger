@@ -9,7 +9,11 @@ type IThreadCard = {
 
 export default function ThreadCard({ threadId }: IThreadCard) {
   const { user } = useUser();
-  const { status, threadData } = useThreadData(threadId, user?.id ?? 0);
+  const { status, threadData } = useThreadData(
+    threadId,
+    user?.id ?? 0,
+    user?.lastChangeTimestamp
+  );
 
   return (
     <NavLink

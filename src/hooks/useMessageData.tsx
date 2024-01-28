@@ -24,6 +24,7 @@ export default function useMessageData(
             userId: e.userId,
             message: e.message,
             timestamp: e.timestamp,
+            withoutBg: e.withoutBg,
           });
         });
         setMessageList(

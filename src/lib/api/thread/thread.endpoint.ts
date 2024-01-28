@@ -17,3 +17,11 @@ export function apiCreateThread(thread: IApiThread) {
     data: JSON.stringify(thread),
   });
 }
+
+export function apiChangeThread(thread: IApiThread, threadId: number | string) {
+  return axios<IApiThread>({
+    url: `${base_url}/threads/${threadId}.json`,
+    method: "PATCH",
+    data: JSON.stringify(thread),
+  });
+}

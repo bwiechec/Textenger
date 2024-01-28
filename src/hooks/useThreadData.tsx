@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import { IThread } from "../lib/api/thread/thread.interface";
 import { apiGetThreadById } from "../lib/api/thread/thread.endpoint";
 import { apiGetUserById } from "../lib/api/user/user.endpoint";
+import { availableEmojiList } from "../lib/utils/helper";
 
 export default function useThreadData(
   threadId: number | string,
   userId: number | string,
+  lastChangeTimestamp?: number,
   setThread?: (newThread: IThread) => void
 ) {
   const [status, setStatus] = useState<"IDLE" | "LOADING" | "ERROR">("IDLE");
@@ -21,6 +23,9 @@ export default function useThreadData(
         const otherUsers = arrayMembers?.findIndex(
           (member, _key) => Object.keys(member)[0] !== userId
         );
+        const emoji = res.data.emoji ?? availableEmojiList[0];
+        const colorsSent = res.data.colors?.sent ?? "bg-blue-500";
+        const colorsReveived = res.data.colors?.received ?? "bg-gray-700";
         apiGetUserById(Object.keys(arrayMembers[otherUsers])[0] ?? userId).then(
           (resUser) => {
             const name =
@@ -29,6 +34,11 @@ export default function useThreadData(
               id: threadId,
               name: name,
               members: arrayMembers,
+              emoji: emoji,
+              colors: {
+                sent: colorsSent,
+                received: colorsReveived,
+              },
             });
             setStatus("IDLE");
             if (setThread)
@@ -36,6 +46,11 @@ export default function useThreadData(
                 id: threadId,
                 name: name,
                 members: arrayMembers,
+                emoji: emoji,
+                colors: {
+                  sent: colorsSent,
+                  received: colorsReveived,
+                },
               });
           }
         );
@@ -43,7 +58,7 @@ export default function useThreadData(
       .catch((_e) => {
         setStatus("ERROR");
       });
-  }, [threadId, userId]);
+  }, [threadId, userId, lastChangeTimestamp]);
 
   return { status, threadData };
 }

@@ -36,6 +36,8 @@ export default function MessageBox({
     currentUserMsg
   );
 
+  console.log(message.withoutBg);
+
   return (
     <div
       className={`flex items-end gap-2 px-1 py-0.5 relative max-w-full ${
@@ -58,8 +60,12 @@ export default function MessageBox({
           {isFirstMessageOfUser && userThreadCount > 2 && message.userId}
         </span>
         <div
-          className={`flex px-4 py-2 ${currentBorderRadius} cursor-default text-wrap max-w-[100%] break-all whitespace-pre ${
-            currentUserMsg ? "bg-blue-500" : "bg-gray-700"
+          className={`flex ${currentBorderRadius} cursor-default text-wrap max-w-[100%] break-all whitespace-pre ${
+            currentUserMsg ? thread?.colors?.sent : thread?.colors?.received
+          } ${
+            message.withoutBg
+              ? "bg-transparent text-2xl px-1 py-1"
+              : "px-4 py-2"
           }`}
           onClick={() => setShowDate((prev) => !prev)}
         >

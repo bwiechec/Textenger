@@ -27,6 +27,7 @@ export default function MessageList() {
   const { status: statusThread, threadData } = useThreadData(
     threadId ?? -1,
     user?.id ?? 0,
+    user?.lastChangeTimestamp,
     setThread
   );
   const [message, setMessage] = useState("");
@@ -65,6 +66,20 @@ export default function MessageList() {
     });
   };
 
+  const sendEmoji = () => {
+    if (!threadData?.emoji) return;
+    apiCreateMessages({
+      userId: user?.id ?? 0,
+      threadId: threadId ?? "",
+      message: threadData?.emoji,
+      timestamp: new Date().getTime(),
+      withoutBg: true,
+    }).then(() => {
+      setLastTimestamp(new Date().getTime());
+      setMessage("");
+    });
+  };
+
   const changeShowingThreadData = () => {
     setShowingThreadData((prev) => !prev);
   };
@@ -82,7 +97,8 @@ export default function MessageList() {
           </span>
           <div
             className={`absolute right-2 md:right-6 cursor-pointer p-1 ${
-              showingThreadData && "bg-blue-500 color-white rounded-full"
+              showingThreadData &&
+              `${threadData?.colors?.sent} color-white rounded-full`
             }`}
             onClick={() => changeShowingThreadData()}
           >
@@ -102,6 +118,7 @@ export default function MessageList() {
             );
           })}
         </div>
+        {/* TODO SENDING MESSAGE TO NEW COMPONENT */}
         <div className="w-full bottom-0 h-24 relative">
           <input
             className="w-full h-24 p-4 bg-[#353434] bg-opacity-60"
@@ -113,9 +130,13 @@ export default function MessageList() {
           />
           <div
             className="absolute right-0 bottom-0 cursor-pointer h-full w-16 flex items-center justify-center"
-            onClick={sendMsg}
+            onClick={message === "" ? sendEmoji : sendMsg}
           >
-            <IoSend />
+            {message === "" ? (
+              <span className="text-2xl">{threadData?.emoji}</span>
+            ) : (
+              <IoSend />
+            )}
           </div>
         </div>
       </div>

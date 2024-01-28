@@ -47,3 +47,12 @@ export const getBoxRadius = (
 };
 
 export const availableEmojiList = ["👍", "❤️", "😎", "🙂"];
+
+export const availableColorList = [
+  "bg-blue-500",
+  "bg-red-500",
+  "bg-orange-500",
+  "bg-lime-500",
+  "bg-emerald-500",
+  "bg-teal-500",
+];

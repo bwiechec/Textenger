@@ -3,6 +3,7 @@ export type IApiMessage = {
   threadId: string | number;
   message: string;
   timestamp: number;
+  withoutBg?: boolean;
 };
 
 export type IMessage = {
@@ -11,4 +12,5 @@ export type IMessage = {
   userId: string | number;
   message: string;
   timestamp: number;
+  withoutBg?: boolean;
 };

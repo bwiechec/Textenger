@@ -20,7 +20,7 @@ export default function ThreadAdditionalData({
         {thread?.name}
         <div
           className={`absolute right-2 cursor-pointer p-1 
-              bg-blue-500 color-white rounded-full block md:hidden`}
+              ${thread?.colors?.sent} color-white rounded-full block md:hidden`}
           onClick={() => changeShowingThreadData()}
         >
           <FaEllipsis />
