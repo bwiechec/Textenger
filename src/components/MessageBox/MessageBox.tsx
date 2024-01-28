@@ -36,8 +36,6 @@ export default function MessageBox({
     currentUserMsg
   );
 
-  console.log(message.withoutBg);
-
   return (
     <div
       className={`flex items-end gap-2 px-1 py-0.5 relative max-w-full ${

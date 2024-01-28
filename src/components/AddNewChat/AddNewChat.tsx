@@ -6,7 +6,10 @@ import Modal from "../Modal/Modal";
 import Select from "react-select";
 import { apiCreateThread } from "../../lib/api/thread/thread.endpoint";
 import { IApiThread } from "../../lib/api/thread/thread.interface";
-import { apiChangeUserById } from "../../lib/api/user/user.endpoint";
+import {
+  apiAddUserThread,
+  apiChangeUserById,
+} from "../../lib/api/user/user.endpoint";
 
 type IAddNewChat = {
   show: boolean;
@@ -63,21 +66,10 @@ export default function AddNewChat({
 
     apiCreateThread(thread).then((res) => {
       arrayMembers.forEach((member, key) => {
-        const userData = userList.find(
-          (userItem) => userItem.id === Object.keys(member)[0]
-        );
-        const threads = userData?.threads ?? [];
-        threads.push({ [res.data.name]: { value: true } });
-        if (!userData) return;
-        apiChangeUserById(userData.id, {
-          name: userData.name,
-          threads: threads.reduce((acc, obj) => {
-            acc[Object.keys(obj)[0]] = {
-              value: obj[Object.keys(obj)[0]].value,
-            };
-            return acc;
-          }, {}),
-        });
+        apiAddUserThread(user?.id ?? 0, { [res.data.name]: { value: true } });
+        const threads = user?.threads
+          ? [...user?.threads, { [res.data.name]: { value: true } }]
+          : [{ [res.data.name]: { value: true } }];
         if (user?.id === Object.keys(member)[0]) afterExecute(threads);
 
         if (key === arrayMembers.length) {

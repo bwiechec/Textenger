@@ -25,3 +25,10 @@ export function apiChangeThread(thread: IApiThread, threadId: number | string) {
     data: JSON.stringify(thread),
   });
 }
+
+export function apiDeleteThread(threadId: number | string) {
+  return axios<IApiThread>({
+    url: `${base_url}/threads/${threadId}.json`,
+    method: "DELETE",
+  });
+}

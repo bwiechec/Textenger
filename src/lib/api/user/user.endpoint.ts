@@ -17,3 +17,24 @@ export function apiChangeUserById(userId: number | string, user: IApiUser) {
     data: JSON.stringify(user),
   });
 }
+
+export function apiAddUserThread(
+  userId: number | string,
+  thread: { [id: number | string]: { value: boolean } }
+) {
+  return axios<IApiUser>({
+    url: `${base_url}/users/${userId}/threads.json`,
+    method: "PATCH",
+    data: JSON.stringify(thread),
+  });
+}
+
+export function apiDeleteUserThread(
+  userId: number | string,
+  threadId: number | string
+) {
+  return axios<IApiUser>({
+    url: `${base_url}/users/${userId}/threads/${threadId}.json`,
+    method: "DELETE",
+  });
+}
