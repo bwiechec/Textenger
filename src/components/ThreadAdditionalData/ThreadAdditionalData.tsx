@@ -21,7 +21,7 @@ export default function ThreadAdditionalData({
     apiDeleteThread(thread?.id ?? 0).then(() => {
       thread?.members?.map((member) => {
         apiDeleteUserThread(Object.keys(member)[0], thread?.id ?? 0).then(
-          (res) => {
+          () => {
             const threads = user?.threads?.filter(
               (userThread) => Object.keys(userThread)[0] !== thread.id
             );

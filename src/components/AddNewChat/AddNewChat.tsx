@@ -6,10 +6,7 @@ import Modal from "../Modal/Modal";
 import Select from "react-select";
 import { apiCreateThread } from "../../lib/api/thread/thread.endpoint";
 import { IApiThread } from "../../lib/api/thread/thread.interface";
-import {
-  apiAddUserThread,
-  apiChangeUserById,
-} from "../../lib/api/user/user.endpoint";
+import { apiAddUserThread } from "../../lib/api/user/user.endpoint";
 
 type IAddNewChat = {
   show: boolean;
