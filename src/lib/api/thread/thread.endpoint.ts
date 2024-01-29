@@ -32,3 +32,13 @@ export function apiDeleteThread(threadId: number | string) {
     method: "DELETE",
   });
 }
+
+export function apiDeleteUserFromThread(
+  userId: number | string,
+  threadId: number | string
+) {
+  return axios<IApiThread>({
+    url: `${base_url}/threads/${threadId}/members/${userId}.json`,
+    method: "DELETE",
+  });
+}

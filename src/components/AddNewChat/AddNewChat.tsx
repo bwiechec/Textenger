@@ -69,7 +69,7 @@ export default function AddNewChat({
           : [{ [res.data.name]: { value: true } }];
         if (user?.id === Object.keys(member)[0]) afterExecute(threads);
 
-        if (key === arrayMembers.length) {
+        if (key === arrayMembers.length - 1) {
           handleClose();
         }
       });

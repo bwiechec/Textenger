@@ -18,26 +18,28 @@ export default function ThreadAdditionalData({
   const { user, setUser } = useUser();
 
   const deleteThread = () => {
-    apiDeleteThread(thread?.id ?? 0).then(() => {
-      thread?.members?.map((member) => {
-        apiDeleteUserThread(Object.keys(member)[0], thread?.id ?? 0).then(
-          () => {
-            const threads = user?.threads?.filter(
-              (userThread) => Object.keys(userThread)[0] !== thread.id
-            );
-            if (Object.keys(member)[0] === user?.id) {
-              user &&
-                setUser({
-                  id: user.id ?? 0,
-                  name: user.name,
-                  threads: threads,
-                  lastChangeTimestamp: new Date().getTime(),
-                });
+    if (confirm(`Are you sure you want to delete chat?`)) {
+      apiDeleteThread(thread?.id ?? 0).then(() => {
+        thread?.members?.map((member) => {
+          apiDeleteUserThread(Object.keys(member)[0], thread?.id ?? 0).then(
+            () => {
+              const threads = user?.threads?.filter(
+                (userThread) => Object.keys(userThread)[0] !== thread.id
+              );
+              if (Object.keys(member)[0] === user?.id) {
+                user &&
+                  setUser({
+                    id: user.id ?? 0,
+                    name: user.name,
+                    threads: threads,
+                    lastChangeTimestamp: new Date().getTime(),
+                  });
+              }
             }
-          }
-        );
+          );
+        });
       });
-    });
+    }
   };
 
   return (

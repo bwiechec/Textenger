@@ -47,9 +47,9 @@ export default function ChangeThreadColor({
   return (
     <Modal
       show={show}
-      title="Rename chat"
+      title="Change chat color"
       onClose={handleClose}
-      data-testid="rename-chat-modal"
+      data-testid="change-chat-color-modal"
       size="lg"
     >
       <div className="flex flex-col items-center w-full mt-6 gap-8">
