@@ -66,9 +66,9 @@ yarn run build
      ![Thread members management](docs/5_6.png)
    - In the bottom user can delete whole thread  
      ![Thread delete](docs/5_7.png)
-3. Add new chat modal
+3. Add new chat modal  
    User can add new chat threads using modal.
-4. Other
+4. Other  
    Mobile first aproach - app is made to work on every device size.
 
 ## Development
